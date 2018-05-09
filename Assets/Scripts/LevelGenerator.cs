@@ -8,11 +8,13 @@ public class LevelGenerator : MonoBehaviour {
 
 	public int numOfPlatforms = 200;
 	public float levelWidth = 3f;
-	public float minY = .2f;
-	public float maxY = 1.5f;
+	public float minY = .3f;
+	public float maxY = 1.2f;
 
 	// Use this for initialization
 	void Start () {
+		
+
 		Vector3 spawnPosition = new Vector3();
 		for (int i = 0;i < numOfPlatforms ; i++)
 		{

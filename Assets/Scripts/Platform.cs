@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour {
 
-	public float jumpForce = 10f;
+	public float jumpForce = 11f;
 
 	void OnCollisionEnter2D(Collision2D collision) 
 	{

@@ -186,8 +186,8 @@ MonoBehaviour:
     type: 2}
   numOfPlatforms: 200
   levelWidth: 3
-  minY: 0.2
-  maxY: 1.5
+  minY: 0.3
+  maxY: 1.2
 --- !u!4 &428689277
 Transform:
   m_ObjectHideFlags: 0
@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  camera: {fileID: 1017341080}
 --- !u!1 &1702022078
 GameObject:
   m_ObjectHideFlags: 0
