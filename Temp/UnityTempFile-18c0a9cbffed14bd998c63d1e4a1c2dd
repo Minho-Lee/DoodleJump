@@ -165,6 +165,7 @@
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
 'Assets/Scripts/CameraFollow.cs'
+'Assets/Scripts/GameMaster.cs'
 'Assets/Scripts/LevelGenerator.cs'
 'Assets/Scripts/Platform.cs'
 'Assets/Scripts/Player.cs'
