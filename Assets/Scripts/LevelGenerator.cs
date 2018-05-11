@@ -12,9 +12,10 @@ public class LevelGenerator : MonoBehaviour {
 
 	public int numOfPlatforms = 200;
 	public float levelWidth = 3f;
-	public float minY = .3f;
-	public float maxY = 1.2f;
+	public float minY = 1.2f;
+	public float maxY = 2f;
 
+	GameObject platforms;
 
 	void Awake()
 	{
@@ -25,6 +26,16 @@ public class LevelGenerator : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		platforms = GameObject.FindGameObjectWithTag ("Platforms");
+		if (platforms == null){
+			Debug.LogError ("Platforms Gameobject Not Found!");
+			return;
+		}
+		SpawnPlatforms ();
+	}
+
+	void SpawnPlatforms()
+	{
 		Vector3 spawnPosition = new Vector3();
 		int chance;
 		for (int i = 0;i < numOfPlatforms ; i++)
@@ -33,11 +44,29 @@ public class LevelGenerator : MonoBehaviour {
 			spawnPosition.y += Random.Range (minY, maxY);
 			chance = Random.Range (1, 100);
 			if (chance < 85) {
-				Instantiate (platformPrefab, spawnPosition, Quaternion.identity);
+				GameObject _clone = Instantiate (platformPrefab, spawnPosition, Quaternion.identity);
+				_clone.transform.parent = platforms.transform;
 			} else if (chance < 95) {
-				Instantiate (bluePlatformPrefab, spawnPosition, Quaternion.identity);
+				GameObject _clone = Instantiate (bluePlatformPrefab, spawnPosition, Quaternion.identity);
+				_clone.transform.parent = platforms.transform;
 			} else {
-				Instantiate (whitePlatformPrefab, spawnPosition, Quaternion.identity);
+				float platformSizeX = whitePlatformPrefab.GetComponent<SpriteRenderer> ().bounds.size.x;
+
+				if (0f < spawnPosition.x && spawnPosition.x < platformSizeX / 2)
+				{
+					spawnPosition.x += platformSizeX / 2;
+				}
+				if ( -platformSizeX / 2 < spawnPosition.x && spawnPosition.x < 0f)
+				{
+					spawnPosition.x -= platformSizeX / 2;
+				}
+
+				GameObject _whiteClone = Instantiate (whitePlatformPrefab, spawnPosition, Quaternion.identity);
+				GameObject _clone = Instantiate (platformPrefab,
+					new Vector3(-spawnPosition.x, spawnPosition.y + Random.Range (-0.5f, 0.5f)), 
+					Quaternion.identity);
+				_whiteClone.transform.parent = platforms.transform;
+				_clone.transform.parent = platforms.transform;
 			}
 		}	 
 	}

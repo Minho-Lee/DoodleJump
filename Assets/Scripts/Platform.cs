@@ -17,6 +17,20 @@ public class Platform : MonoBehaviour {
 		}		
 	}
 
+	// caching
+	private AudioManager audioManager;
+
+	string whitePlatformSound = "WhitePlatform";
+	string bluePlatformSound = "BluePlatform";
+
+	void Start()
+	{
+		audioManager = AudioManager.instance;
+		if (audioManager == null) {
+			Debug.LogError ("No AudioManager instance found in GM");
+		}
+	}
+
 	void OnCollisionEnter2D(Collision2D collision) 
 	{
 		// Check if the Doodler is coming from below
@@ -35,11 +49,14 @@ public class Platform : MonoBehaviour {
 			if (this.name.Contains ("BluePlatform"))
 			{
 				Debug.Log ("BLUE PLATFORM");
+				audioManager.PlaySound (bluePlatformSound);
 			}
 			else if (this.name.Contains ("Platform"))
 			{
 				Debug.Log ("PLATFORM");
+				audioManager.PlaySound (whitePlatformSound);
 			}
+
 		} 
 	}
 
@@ -55,7 +72,7 @@ public class Platform : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator DisappearingAnimation()
+	IEnumerator DisappearingAnimation()
 	{
 		Animator animator = transform.GetComponent <Animator>();
 		animator.enabled = true;

@@ -7,6 +7,7 @@ TagManager:
   - BluePlatform
   - Platform
   - WhitePlatform
+  - Platforms
   layers:
   - Default
   - TransparentFX

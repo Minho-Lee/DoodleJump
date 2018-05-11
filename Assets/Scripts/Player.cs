@@ -16,6 +16,9 @@ public class Player : MonoBehaviour {
 	float rightConstraint;
 	float spriteSizeX;
 
+	// caching
+	private AudioManager audioManager;
+
 	void Awake ()
 	{
 		if (camera != null)
@@ -36,6 +39,13 @@ public class Player : MonoBehaviour {
 		{
 			Debug.LogError ("No Camera referenced in Player!");
 		}
+
+		audioManager = AudioManager.instance;
+		if (audioManager == null) {
+			Debug.LogError ("No AudioManager instance found in GM");
+		}
+
+		GameMaster.gm.onTogglePauseMenu += OnPauseMenuToggle;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +60,10 @@ public class Player : MonoBehaviour {
 		} else {
 			CheckWrapAround ();	
 		}
+	}
+	void OnPauseMenuToggle(bool _active)
+	{
+		GetComponent <Rigidbody2D>().simulated = !_active;
 	}
 
 	void CheckWrapAround() 
@@ -73,6 +87,7 @@ public class Player : MonoBehaviour {
 
 	void OnDestroy ()
 	{
-		// Subscribe to OnUpgradeMenuToggle
+		// Unsubscribe to OnUpgradeMenuToggle
+		GameMaster.gm.onTogglePauseMenu -= OnPauseMenuToggle;
 	}
 }
