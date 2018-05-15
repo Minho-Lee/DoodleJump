@@ -44,11 +44,14 @@ public class LevelGenerator : MonoBehaviour {
 			spawnPosition.x = Random.Range (-levelWidth, levelWidth);
 			spawnPosition.y += Random.Range (minY, maxY);
 			chance = Random.Range (1, 100);
-			if (chance < 85) {
+			if (chance < 83) {
 				GameObject _clone = Instantiate (platformPrefab, spawnPosition, Quaternion.identity);
 				_clone.transform.parent = platforms.transform;
-			} else if (chance < 95) {
+			} else if (chance < 90) {
 				GameObject _clone = Instantiate (bluePlatformPrefab, spawnPosition, Quaternion.identity);
+				_clone.transform.parent = platforms.transform;
+			} else if (chance < 95) {
+				GameObject _clone = Instantiate (whitePlatformPrefab, spawnPosition, Quaternion.identity);
 				_clone.transform.parent = platforms.transform;
 			} else {
 				float platformSizeX = redPlatformPrefab.GetComponent<SpriteRenderer> ().bounds.size.x;

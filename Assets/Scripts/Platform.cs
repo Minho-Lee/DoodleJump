@@ -22,6 +22,7 @@ public class Platform : MonoBehaviour {
 
 	string platformSound = "Platform";
 	string bluePlatformSound = "BluePlatform";
+	string redPlatformSound = "RedPlatform";
 
 	void Start()
 	{
@@ -44,15 +45,23 @@ public class Platform : MonoBehaviour {
 				velocity.y = jumpForce;
 				rb.velocity = velocity;
 			}	
-			// Make WhitePlatform disappear and disable collision as soon as it bumps
+			// Make WhitePlatform disappear
 
 			if (this.name.Contains ("BluePlatform"))
 			{
 				Debug.Log ("BLUE PLATFORM");
 				audioManager.PlaySound (bluePlatformSound);
 			}
-			else if (this.name.Contains ("Platform"))
+			else if (this.name.Contains ("WhitePlatform"))
 			{
+				Debug.Log ("WHITE PLATFORM");
+				audioManager.PlaySound (platformSound);
+				// Make whitePlatform no longer bounceable while animation is active
+				this.GetComponent <EdgeCollider2D> ().enabled = false;
+				// Queue disappering animation
+				this.GetComponent <Animator>().enabled = true;
+				Destroy (this, 0.5f);
+			} else {
 				Debug.Log ("PLATFORM");
 				audioManager.PlaySound (platformSound);
 			}
@@ -69,11 +78,13 @@ public class Platform : MonoBehaviour {
 			//this.GetComponent <EdgeCollider2D>().enabled = false;
 			//Debug.Log ("WHITE PLATFORM");
 			StartCoroutine ("DisappearingAnimation");
+			audioManager.PlaySound (redPlatformSound);
 		}
 	}
 
 	IEnumerator DisappearingAnimation()
 	{
+		// For RedPlatform which the Doodler just passes through
 		Animator animator = transform.GetComponent <Animator>();
 		animator.enabled = true;
 		yield return new WaitForSeconds (1f);

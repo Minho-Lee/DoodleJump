@@ -94,3 +94,10 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
     loop: 0
+  - name: RedPlatform
+    clip: {fileID: 8300000, guid: d0b5705b1afff444184d10822955b5c1, type: 3}
+    volume: 0.52
+    pitch: 1
+    randomVolume: 0.1
+    randomPitch: 0.15
+    loop: 0
