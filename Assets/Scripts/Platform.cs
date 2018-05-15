@@ -8,19 +8,19 @@ public class Platform : MonoBehaviour {
 
 	void Awake()
 	{
-		if (this.tag == "Platform") {
+		if (this.tag == "Platform" || this.tag == "WhitePlatform") {
 			jumpForce = 11f;
 		} else if (this.tag == "BluePlatform") {
 			jumpForce = 15f;
 		} else {
-			jumpForce = 0f;
+			// RedPlatform will just break;
 		}		
 	}
 
 	// caching
 	private AudioManager audioManager;
 
-	string whitePlatformSound = "WhitePlatform";
+	string platformSound = "Platform";
 	string bluePlatformSound = "BluePlatform";
 
 	void Start()
@@ -54,7 +54,7 @@ public class Platform : MonoBehaviour {
 			else if (this.name.Contains ("Platform"))
 			{
 				Debug.Log ("PLATFORM");
-				audioManager.PlaySound (whitePlatformSound);
+				audioManager.PlaySound (platformSound);
 			}
 
 		} 

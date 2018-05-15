@@ -122,11 +122,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4186113498873188, guid: 99e4ef47b7dbb4fb3a0ff7857ffdc298, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 4186113498873188, guid: 99e4ef47b7dbb4fb3a0ff7857ffdc298, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.4633927
+      value: -0.65
       objectReference: {fileID: 0}
     - target: {fileID: 4186113498873188, guid: 99e4ef47b7dbb4fb3a0ff7857ffdc298, type: 2}
       propertyPath: m_LocalPosition.z
@@ -230,10 +230,12 @@ MonoBehaviour:
     type: 2}
   whitePlatformPrefab: {fileID: 1962135247813440, guid: 85109a6104bff45b4a22cc14ff63db28,
     type: 2}
+  redPlatformPrefab: {fileID: 1287156235397722, guid: 003321c36b440484db06432931536640,
+    type: 2}
   numOfPlatforms: 200
   levelWidth: 3
-  minY: 0.6
-  maxY: 1.2
+  minY: 1.2
+  maxY: 2
 --- !u!4 &428689277
 Transform:
   m_ObjectHideFlags: 0
@@ -264,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &819301746
 RectTransform:
   m_ObjectHideFlags: 0
@@ -323,7 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec7697f3c4dd4414b47b80473e0b522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseAnimator: {fileID: 0}
   pauseText: {fileID: 1671543703}
   commentText: {fileID: 1193737219}
 --- !u!1 &1017341077

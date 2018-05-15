@@ -9,6 +9,7 @@ public class LevelGenerator : MonoBehaviour {
 	public GameObject platformPrefab;
 	public GameObject bluePlatformPrefab;
 	public GameObject whitePlatformPrefab;
+	public GameObject redPlatformPrefab;
 
 	public int numOfPlatforms = 200;
 	public float levelWidth = 3f;
@@ -50,7 +51,7 @@ public class LevelGenerator : MonoBehaviour {
 				GameObject _clone = Instantiate (bluePlatformPrefab, spawnPosition, Quaternion.identity);
 				_clone.transform.parent = platforms.transform;
 			} else {
-				float platformSizeX = whitePlatformPrefab.GetComponent<SpriteRenderer> ().bounds.size.x;
+				float platformSizeX = redPlatformPrefab.GetComponent<SpriteRenderer> ().bounds.size.x;
 
 				if (0f < spawnPosition.x && spawnPosition.x < platformSizeX / 2)
 				{
@@ -61,11 +62,11 @@ public class LevelGenerator : MonoBehaviour {
 					spawnPosition.x -= platformSizeX / 2;
 				}
 
-				GameObject _whiteClone = Instantiate (whitePlatformPrefab, spawnPosition, Quaternion.identity);
+				GameObject _redClone = Instantiate (redPlatformPrefab, spawnPosition, Quaternion.identity);
 				GameObject _clone = Instantiate (platformPrefab,
 					new Vector3(-spawnPosition.x, spawnPosition.y + Random.Range (-0.5f, 0.5f)), 
 					Quaternion.identity);
-				_whiteClone.transform.parent = platforms.transform;
+				_redClone.transform.parent = platforms.transform;
 				_clone.transform.parent = platforms.transform;
 			}
 		}	 

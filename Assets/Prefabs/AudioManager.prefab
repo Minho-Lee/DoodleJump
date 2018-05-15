@@ -59,7 +59,7 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
     loop: 1
-  - name: WhitePlatform
+  - name: Platform
     clip: {fileID: 8300000, guid: af6800ccbaa6941d29283f908073f7e0, type: 3}
     volume: 0.51
     pitch: 1
