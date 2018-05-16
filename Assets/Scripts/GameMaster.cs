@@ -18,6 +18,8 @@ public class GameMaster : MonoBehaviour {
 	[SerializeField]
 	Player player;
 
+	public Transform enemyPrefab;
+
 	private float scoreMultiplier;
 	private static int _score;
 	public static int Score {
@@ -28,7 +30,7 @@ public class GameMaster : MonoBehaviour {
 	float maxPosY = 0f;
 	float currPosY;
 
-	private int victory = 50;
+	private int victory = 150;
 
 	[SerializeField]
 	private GameObject pauseMenu;
@@ -48,11 +50,17 @@ public class GameMaster : MonoBehaviour {
 		if (audioManager == null) {
 			Debug.LogError ("No AudioManager instance found in GM");
 		}
+		if (enemyPrefab == null)
+		{
+			Debug.LogError ("No EnemyPrefab found in GM!");
+		}
 	}
+
 
 	void Update()
 	{
 		gm.UpdateScore ();
+
 		if (Input.GetKeyDown (KeyCode.P))
 		{
 			TogglePauseMenu ();
@@ -69,8 +77,35 @@ public class GameMaster : MonoBehaviour {
 	public static void KillPlayer(Player _player)
 	{
 		Destroy (_player.gameObject);
+		Debug.Log ("Player DEAD!");
 		gm.EndGame ();
 	}
+
+	public static void KillEnemy(Enemy enemy)
+	{
+		Debug.Log ("Enemy Killed!");
+		gm._KillEnemy (enemy);
+	}
+
+	private void _KillEnemy(Enemy _enemy)
+	{
+		// TODO: Add Particle Effects
+
+		// TODO: Camera Shake
+
+		Destroy (_enemy.gameObject);
+	}
+
+	public static void SpawnEnemy(Vector3 pos)
+	{
+		Debug.Log ("Enemy Spawned!");
+		gm._SpawnEnemy (pos);
+	}
+	private void _SpawnEnemy(Vector3 _pos)
+	{
+		Instantiate (enemyPrefab, _pos, Quaternion.identity);
+	}
+
 
 	public void EndGame()
 	{
@@ -79,7 +114,7 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	bool _flag = false;
-	void UpdateScore ()
+	private void UpdateScore ()
 	{
 		// Check if player is still alive
 		if (player != null) {

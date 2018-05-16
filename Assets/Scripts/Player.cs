@@ -16,12 +16,14 @@ public class Player : MonoBehaviour {
 	float rightConstraint;
 	float spriteSizeX;
 
+	private List<GameObject> _platforms = new List<GameObject>();
+
 	// caching
 	private AudioManager audioManager;
 
 	void Awake ()
 	{
-		if (camera != null)
+		if (camera == null)
 		{
 			camera = Camera.main;
 		}
@@ -44,18 +46,39 @@ public class Player : MonoBehaviour {
 		if (audioManager == null) {
 			Debug.LogError ("No AudioManager instance found in GM");
 		}
+		StartCoroutine (FetchPlatforms (LevelGenerator.loadingTime));
 
 		GameMaster.gm.onTogglePauseMenu += OnPauseMenuToggle;
+	}
+	IEnumerator FetchPlatforms(float _time) 
+	{
+		yield return new WaitForSeconds (_time);
+		_platforms = LevelGenerator.platformList;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 		//movement = Input.GetAxis ("Horizontal") * movementSpeed;
 		Vector3 screenPos = camera.WorldToScreenPoint (transform.position);
-		
+		// Remove platforms
+		if (_platforms.Count > 0)
+		{
+			foreach (GameObject _platform in _platforms)	
+			{
+				if (_platform != null){
+					Vector3 platformPos = camera.WorldToScreenPoint (_platform.transform.position);
+					if (platformPos.y < fallBoundary + 10)
+					{
+						Destroy (_platform);
+					}	
+				} 
+			}
+		}
+				
+
 		if (screenPos.y < fallBoundary)
 		{
-			Debug.Log ("Player DEAD!");
 			GameMaster.KillPlayer (this);
 		} else {
 			CheckWrapAround ();	

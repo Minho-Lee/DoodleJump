@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43a81a5f1acf43b4847b88ce0f86a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  camera: {fileID: 0}
   jumpForce: 10
 --- !u!212 &212530267294487978
 SpriteRenderer:

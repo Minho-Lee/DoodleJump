@@ -10,10 +10,12 @@ public class Shooting : MonoBehaviour {
 
 	public GameObject bulletPrefab;
 
-	public Transform firePoint;
+	private Transform firePoint;
+	[SerializeField]
+	private Transform bullets;
 
 	private float timeToFire;
-	private float bulletSpeed = 8f;
+	private float bulletSpeed = 10f;
 
 	// caching
 	private AudioManager audioManager;
@@ -30,6 +32,10 @@ public class Shooting : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audioManager = AudioManager.instance;
+		if (bullets == null)
+		{
+			Debug.LogError ("Bullet container not found in Main Scene!");
+		}
 		if (audioManager == null)
 		{
 			Debug.LogError ("No AudioManager instance found in Main Scene");
@@ -41,7 +47,7 @@ public class Shooting : MonoBehaviour {
 		// Single fire only
 		if (Input.GetButtonDown ("Fire1") && Time.time > timeToFire)
 		{
-			Debug.Log (Time.time + " / " + timeToFire);
+			//Debug.Log (Time.time + " / " + timeToFire);
 			timeToFire = Time.time + fireRate;
 			Shoot ();
 		}
@@ -57,13 +63,17 @@ public class Shooting : MonoBehaviour {
 	void Shoot()
 	{
 		GameObject bulletClone = Instantiate (bulletPrefab, firePoint.position, firePoint.rotation);
-		// TODO: Deal with collision later
-		CircleCollider2D _cc = bulletClone.GetComponent<CircleCollider2D> ();
+		bulletClone.transform.parent = bullets;
+
 		Rigidbody2D _rb = bulletClone.GetComponent <Rigidbody2D> ();
 
 		_rb.velocity = new Vector2 (0f, bulletSpeed);
+		//_rb.AddForce (bulletSpeed * Vector3.up);
 		StartCoroutine(AnimateShooting ());
 
-		Destroy (bulletClone, 2f);
+		// If bullet already collided with an enemy, destroy after 2 seconds
+		if (bulletClone != null) {
+			Destroy (bulletClone, 2f);
+		}
 	}
 }

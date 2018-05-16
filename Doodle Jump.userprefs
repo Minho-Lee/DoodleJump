@@ -1,15 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameMaster.cs" Line="21" Column="31" />
-      <File FileName="Assets/Scripts/Player.cs" Line="18" Column="23" />
-      <File FileName="../GameTutorial/Assets/Scripts/Player.cs" Line="67" Column="2" />
-      <File FileName="Assets/Scripts/Platform.cs" Line="7" Column="29" />
-      <File FileName="Assets/Scripts/LevelGenerator.cs" Line="13" Column="27" />
-      <File FileName="Assets/Scripts/CameraFollow.cs" Line="19" Column="5" />
-      <File FileName="../GameTutorial/Assets/Scripts/GameMaster.cs" Line="37" Column="15" />
-      <File FileName="../GameTutorial/Assets/Scripts/CameraShake.cs" Line="13" Column="26" />
+      <File FileName="Assets/Scripts/PauseUI.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameMaster.cs" Line="18" Column="18" />
+      <File FileName="../GameTutorial/Assets/Scripts/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Platform.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LevelGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CameraFollow.cs" Line="1" Column="1" />
+      <File FileName="../GameTutorial/Assets/Scripts/GameMaster.cs" Line="1" Column="1" />
+      <File FileName="../GameTutorial/Assets/Scripts/CameraShake.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Shooting.cs" Line="15" Column="26" />
+      <File FileName="Assets/Scripts/Player.cs" Line="11" Column="2" NotebookId="1" />
+      <File FileName="../GameTutorial/Assets/Scripts/Weapon.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="8" Column="2" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
