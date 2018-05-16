@@ -7,7 +7,6 @@ TagManager:
   - BluePlatform
   - Platform
   - WhitePlatform
-  - Platforms
   - RedPlatform
   layers:
   - Default

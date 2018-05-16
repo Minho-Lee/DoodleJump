@@ -152,6 +152,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1895123105861058, guid: 99e4ef47b7dbb4fb3a0ff7857ffdc298, type: 2}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99e4ef47b7dbb4fb3a0ff7857ffdc298, type: 2}
   m_IsPrefabParent: 0
@@ -727,7 +731,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1017341080}
   fallBoundary: -20
-  platforms: {fileID: 1355531182}
 --- !u!114 &1284925163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,7 +770,7 @@ GameObject:
   - component: {fileID: 1355531183}
   m_Layer: 0
   m_Name: Platforms
-  m_TagString: Platforms
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
