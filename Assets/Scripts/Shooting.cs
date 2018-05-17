@@ -17,6 +17,10 @@ public class Shooting : MonoBehaviour {
 	private float timeToFire;
 	private float bulletSpeed = 10f;
 
+	private bool shootingActive = true;
+
+	private Animator animator;
+
 	// caching
 	private AudioManager audioManager;
 
@@ -27,11 +31,14 @@ public class Shooting : MonoBehaviour {
 		{
 			Debug.LogError("FirePoint Not found in Player!");
 		}
+
+		GameMaster.gm.onTogglePauseMenu += OnPauseMenuToggle;
 	}
 
 	// Use this for initialization
 	void Start () {
 		audioManager = AudioManager.instance;
+		animator = this.GetComponentInParent<Animator> ();
 		if (bullets == null)
 		{
 			Debug.LogError ("Bullet container not found in Main Scene!");
@@ -39,6 +46,10 @@ public class Shooting : MonoBehaviour {
 		if (audioManager == null)
 		{
 			Debug.LogError ("No AudioManager instance found in Main Scene");
+		}
+		if (animator == null)
+		{
+			Debug.LogError ("No Animator instance in Doodler!");
 		}
 	}
 	
@@ -49,17 +60,10 @@ public class Shooting : MonoBehaviour {
 		{
 			//Debug.Log (Time.time + " / " + timeToFire);
 			timeToFire = Time.time + fireRate;
-			Shoot ();
+			if (shootingActive)
+				Shoot ();
 		}
 	}
-	IEnumerator AnimateShooting()
-	{
-		Animator animator = this.GetComponentInParent<Animator> ();
-		animator.SetBool ("Shooting", true);
-		yield return new WaitForSeconds (0.2f);
-		animator.SetBool ("Shooting", false);
-	}
-
 	void Shoot()
 	{
 		GameObject bulletClone = Instantiate (bulletPrefab, firePoint.position, firePoint.rotation);
@@ -68,12 +72,29 @@ public class Shooting : MonoBehaviour {
 		Rigidbody2D _rb = bulletClone.GetComponent <Rigidbody2D> ();
 
 		_rb.velocity = new Vector2 (0f, bulletSpeed);
-		//_rb.AddForce (bulletSpeed * Vector3.up);
+
 		StartCoroutine(AnimateShooting ());
 
 		// If bullet already collided with an enemy, destroy after 2 seconds
 		if (bulletClone != null) {
-			Destroy (bulletClone, 2f);
+			Destroy (bulletClone, 2.5f);
 		}
+	}
+	IEnumerator AnimateShooting()
+	{
+		animator.SetBool ("Shooting", true);
+		yield return new WaitForSeconds (0.2f);
+		animator.SetBool ("Shooting", false);
+	}
+
+	void OnPauseMenuToggle(bool _active)
+	{
+		//animator.enabled = !_active;
+		shootingActive = !_active;
+	}
+
+	void OnDestroy()
+	{
+		GameMaster.gm.onTogglePauseMenu -= OnPauseMenuToggle;
 	}
 }

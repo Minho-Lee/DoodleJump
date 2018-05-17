@@ -92,7 +92,7 @@ public class LevelGenerator : MonoBehaviour {
 			_clone.transform.parent = platforms.transform;
 
 			// Spawn Enemies
-			if (i > 50 && chance < 11)
+			if (i > 50 && chance < 15)
 			{
 				GameMaster.SpawnEnemy (new Vector3(-spawnPosition.x, spawnPosition.y, spawnPosition.z));
 			}

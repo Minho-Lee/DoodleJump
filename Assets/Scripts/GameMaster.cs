@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour {
 
 	public static GameMaster gm;
+
+	public Camera camera;
 
 	void Awake () 
 	{
@@ -13,10 +17,20 @@ public class GameMaster : MonoBehaviour {
 		{
 			gm = this;
 		}
+
+		if (camera == null)
+		{
+			camera = Camera.main;
+		}
 	}
 
 	[SerializeField]
 	Player player;
+
+	[SerializeField]
+	private Text commentText;
+//	[SerializeField]
+//	private Text testingText;
 
 	public Transform enemyPrefab;
 
@@ -46,6 +60,8 @@ public class GameMaster : MonoBehaviour {
 
 	void Start () 
 	{
+		Debug.Log (Application.platform);
+
 		audioManager = AudioManager.instance;
 		if (audioManager == null) {
 			Debug.LogError ("No AudioManager instance found in GM");
@@ -54,17 +70,49 @@ public class GameMaster : MonoBehaviour {
 		{
 			Debug.LogError ("No EnemyPrefab found in GM!");
 		}
+		if (commentText == null)
+		{
+			Debug.LogError ("No commentText Found in GM!");
+		}
 	}
 
 
 	void Update()
 	{
 		gm.UpdateScore ();
-
-		if (Input.GetKeyDown (KeyCode.P))
+		if (Application.platform.ToString () == "OSXEditor" || 
+			Application.platform.ToString () == "OSXPlayer")
 		{
-			TogglePauseMenu ();
+			if (Input.GetKeyDown (KeyCode.P)) {
+				TogglePauseMenu ();
+			}
+//			if (Input.GetKeyDown (KeyCode.Mouse1)){
+//				testingText.text = "" + camera.ScreenToWorldPoint (commentText.transform.position);
+//				commentText.text = "" + camera.ScreenToWorldPoint (Input.mousePosition);	
+//			}
+
 		}
+		// Mobile Devices
+		else {
+			if (Input.touchCount > 0) {
+				Touch touch = Input.GetTouch (0);
+				if (touch.phase == TouchPhase.Began) {
+					
+					Ray ray = camera.ScreenPointToRay (touch.position);
+					float _posY = camera.ScreenToWorldPoint (commentText.transform.position).y;
+					//testingText.text = "" + camera.ScreenToWorldPoint (touch.position);
+					if (-2 < ray.origin.x && ray.origin.x < 2 &&
+						_posY - 0.7 < ray.origin.y && ray.origin.y <= _posY)
+					{
+						TogglePauseMenu ();
+					}
+				}
+			}
+		}
+		if (Input.GetKeyDown (KeyCode.Escape))
+			Application.Quit ();
+
+
 	}
 
 	void TogglePauseMenu()
@@ -98,19 +146,24 @@ public class GameMaster : MonoBehaviour {
 
 	public static void SpawnEnemy(Vector3 pos)
 	{
-		Debug.Log ("Enemy Spawned!");
 		gm._SpawnEnemy (pos);
 	}
 	private void _SpawnEnemy(Vector3 _pos)
 	{
 		Instantiate (enemyPrefab, _pos, Quaternion.identity);
 	}
-
-
+		
 	public void EndGame()
 	{
 		Debug.Log ("Game Over!");
 		audioManager.PlaySound (gameOverSound);
+		StartCoroutine (Restart ());
+
+	}
+	IEnumerator Restart()
+	{
+		yield return new WaitForSeconds (3f);
+		SceneManager.LoadScene ("MainLevel");
 	}
 
 	bool _flag = false;

@@ -31,8 +31,19 @@ public class PauseUI : MonoBehaviour {
 
 	void OnPauseMenuToggle(bool _active)
 	{
-		commentText.text = _active ?
-			"Press 'p' to continue" :
-			"Press 'p' to pause";
+		if (Application.platform.ToString () == "OSXEditor" || 
+			Application.platform.ToString () == "OSXPlayer")
+		{
+			commentText.text = _active ?
+				"Press 'p' to continue" :
+				"Press 'p' to pause";	
+		}
+		else
+		{
+			commentText.text = _active ?
+				"Tap here to continue" :
+				"Tap here to pause";
+		}
+
 	}
 }
